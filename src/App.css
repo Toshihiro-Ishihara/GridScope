@@ -1,6 +1,6 @@
 :root {
   color: #ffffff;
-  background: #111318;
+  background: #070b10;
 }
 
 html,
@@ -8,7 +8,7 @@ body,
 #root {
   margin: 0;
   min-height: 100%;
-  background: #111318;
+  background: radial-gradient(circle at top, #101821 0%, #070b10 55%, #05070a 100%);
   color: #ffffff;
 }
 
@@ -19,6 +19,16 @@ body,
 body {
   overflow-x: hidden;
   font-family: Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+p,
+div,
+span,
+strong {
+  color: #ffffff;
 }
 
 .app {
@@ -44,17 +54,14 @@ body {
   margin: 0 0 4px;
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
 }
 
 .subtitle {
   margin: 0;
-  color: #ffffff;
 }
 
 .date-row {
   text-align: right;
-  color: #ffffff;
   margin: 12px 0 22px;
   font-size: 14px;
   font-weight: 700;
@@ -69,48 +76,48 @@ body {
 .top-cards > * {
   width: 100% !important;
   min-height: 230px;
-  color: #ffffff;
 }
 
+/* エリア別価格 */
 .area-price-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 12px;
 }
 
+/* グラフ */
 .chart-wrapper {
   height: 420px;
 }
 
-/* ---------------- スマホ最適化 ---------------- */
-
+/* スマホ */
 @media (max-width: 768px) {
   .app {
-    width: min(100%, calc(100% - 24px));
-    margin: 18px auto 28px;
+    width: calc(100% - 20px);
+    margin: 20px auto 28px;
   }
 
   .app-header {
-    padding-bottom: 14px;
-    margin-bottom: 10px;
+    padding-bottom: 18px;
+    margin-bottom: 14px;
   }
 
   .app-header h1 {
-    font-size: 34px;
+    font-size: 36px;
   }
 
   .english-title {
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .subtitle {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .date-row {
     text-align: center;
-    font-size: 12px;
-    margin: 10px 0 16px;
+    font-size: 15px;
+    margin: 16px 0 20px;
   }
 
   .top-cards {
@@ -132,33 +139,25 @@ body {
   }
 
   h2 {
-    font-size: 22px;
+    font-size: 24px;
   }
 }
 
 @media (max-width: 480px) {
   .app {
     width: calc(100% - 16px);
-    margin-top: 12px;
+    margin-top: 14px;
   }
 
   .app-header h1 {
-    font-size: 30px;
-  }
-
-  .english-title {
-    font-size: 12px;
-  }
-
-  .subtitle {
-    font-size: 13px;
+    font-size: 34px;
   }
 
   .date-row {
-    font-size: 11px;
+    font-size: 14px;
   }
 
   .chart-wrapper {
-    height: 320px;
+    height: 330px;
   }
 }

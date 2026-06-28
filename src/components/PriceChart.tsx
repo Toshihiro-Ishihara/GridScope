@@ -45,18 +45,18 @@ function PriceChart({
         pointBackgroundColor: "#ffffff",
         pointBorderColor: "#ffffff",
         borderWidth: 4,
-        pointRadius: 2,
-        pointHoverRadius: 7,
+        pointRadius: 0,
+        pointHoverRadius: 6,
         tension: 0.35,
       },
       {
         label: "東京",
         data: tokyoPriceData,
-        borderColor: "#ff6b6b",
-        backgroundColor: "#ff6b6b",
-        pointRadius: 2,
+        borderColor: "#ff5c66",
+        backgroundColor: "#ff5c66",
+        pointRadius: 0,
         pointHoverRadius: 6,
-        borderWidth: 3,
+        borderWidth: 4,
         tension: 0.35,
       },
       {
@@ -64,9 +64,9 @@ function PriceChart({
         data: kansaiPriceData,
         borderColor: "#4dabf7",
         backgroundColor: "#4dabf7",
-        pointRadius: 2,
+        pointRadius: 0,
         pointHoverRadius: 6,
-        borderWidth: 3,
+        borderWidth: 4,
         tension: 0.35,
       },
       {
@@ -74,9 +74,9 @@ function PriceChart({
         data: kyushuPriceData,
         borderColor: "#69db7c",
         backgroundColor: "#69db7c",
-        pointRadius: 2,
+        pointRadius: 0,
         pointHoverRadius: 6,
-        borderWidth: 3,
+        borderWidth: 4,
         tension: 0.35,
       },
     ],
@@ -92,10 +92,12 @@ function PriceChart({
         labels: {
           color: "#ffffff",
           font: {
-            size: 13,
+            size: 15,
             weight: "bold",
           },
-          padding: 14,
+          padding: 18,
+          boxWidth: 42,
+          boxHeight: 4,
         },
       },
       tooltip: {
@@ -107,14 +109,17 @@ function PriceChart({
       x: {
         ticks: {
           color: "#ffffff",
-          font: { size: 11 },
-          maxRotation: 55,
-          minRotation: 55,
+          font: {
+            size: 12,
+            weight: "bold",
+          },
           autoSkip: true,
           maxTicksLimit: 12,
+          maxRotation: 45,
+          minRotation: 45,
         },
         grid: {
-          color: "rgba(255, 255, 255, 0.22)",
+          color: "rgba(255,255,255,0.22)",
         },
       },
       y: {
@@ -123,7 +128,7 @@ function PriceChart({
           text: "円/kWh",
           color: "#ffffff",
           font: {
-            size: 13,
+            size: 14,
             weight: "bold",
           },
         },
@@ -135,7 +140,7 @@ function PriceChart({
           },
         },
         grid: {
-          color: "rgba(255, 255, 255, 0.25)",
+          color: "rgba(255,255,255,0.25)",
         },
       },
     },
@@ -144,14 +149,17 @@ function PriceChart({
   return (
     <div
       style={{
-        border: "1px solid #ddd",
+        border: "1px solid rgba(255,255,255,0.45)",
         borderRadius: "12px",
-        padding: "20px",
+        padding: "18px",
         marginTop: "20px",
+        background: "rgba(255,255,255,0.03)",
         color: "#ffffff",
       }}
     >
-      <h2 style={{ textAlign: "center" }}>📈 価格推移</h2>
+      <h2 style={{ textAlign: "left", marginTop: 0 }}>
+        📈 価格推移
+      </h2>
 
       <div className="chart-wrapper">
         <Line data={chartData} options={options} />
