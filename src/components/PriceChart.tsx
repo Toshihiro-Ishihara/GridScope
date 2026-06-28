@@ -6,6 +6,7 @@ import {
   LineElement,
   Tooltip,
   Legend,
+  type ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
@@ -44,7 +45,7 @@ function PriceChart({
         pointBackgroundColor: "#ffffff",
         pointBorderColor: "#ffffff",
         borderWidth: 4,
-        pointRadius: 3,
+        pointRadius: 2,
         pointHoverRadius: 7,
         tension: 0.35,
       },
@@ -81,20 +82,20 @@ function PriceChart({
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top" as const,
-        align: "center" as const,
+        position: "top",
+        align: "center",
         labels: {
           color: "#ffffff",
           font: {
-            size: 15,
-            weight: "bold" as const,
+            size: 13,
+            weight: "bold",
           },
-          padding: 18,
-          usePointStyle: false,
+          padding: 14,
         },
       },
       tooltip: {
@@ -106,12 +107,14 @@ function PriceChart({
       x: {
         ticks: {
           color: "#ffffff",
-          font: { size: 12 },
-          maxRotation: 50,
-          minRotation: 50,
+          font: { size: 11 },
+          maxRotation: 55,
+          minRotation: 55,
+          autoSkip: true,
+          maxTicksLimit: 12,
         },
         grid: {
-          color: "rgba(255, 255, 255, 0.25)",
+          color: "rgba(255, 255, 255, 0.22)",
         },
       },
       y: {
@@ -120,15 +123,15 @@ function PriceChart({
           text: "円/kWh",
           color: "#ffffff",
           font: {
-            size: 14,
-            weight: "bold" as const,
+            size: 13,
+            weight: "bold",
           },
         },
         ticks: {
           color: "#ffffff",
           font: {
-            size: 16,
-            weight: "bold" as const,
+            size: 14,
+            weight: "bold",
           },
         },
         grid: {
@@ -143,12 +146,16 @@ function PriceChart({
       style={{
         border: "1px solid #ddd",
         borderRadius: "12px",
-        padding: "24px",
+        padding: "20px",
         marginTop: "20px",
+        color: "#ffffff",
       }}
     >
-      <h2>📈 価格推移</h2>
-      <Line data={chartData} options={options} />
+      <h2 style={{ textAlign: "center" }}>📈 価格推移</h2>
+
+      <div className="chart-wrapper">
+        <Line data={chartData} options={options} />
+      </div>
     </div>
   );
 }

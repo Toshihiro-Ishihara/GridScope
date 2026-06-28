@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import "./App.css";
+
 import AiInsightCard from "./components/AiInsightCard";
 import PriceCard from "./components/PriceCard";
 import PriceChart from "./components/PriceChart";
@@ -15,10 +17,7 @@ type AreaPrice = {
 
 function formatSlotTime(slot: string) {
   const slotNumber = Number(slot);
-
-  if (!slotNumber || slotNumber < 1 || slotNumber > 48) {
-    return "";
-  }
+  if (!slotNumber || slotNumber < 1 || slotNumber > 48) return "";
 
   const startMinutes = (slotNumber - 1) * 30;
   const endMinutes = slotNumber * 30;
@@ -26,11 +25,7 @@ function formatSlotTime(slot: string) {
   const format = (minutes: number) => {
     const hour = Math.floor(minutes / 60);
     const minute = minutes % 60;
-
-    if (hour === 24) {
-      return "24:00";
-    }
-
+    if (hour === 24) return "24:00";
     return `${hour}:${minute.toString().padStart(2, "0")}`;
   };
 
@@ -51,7 +46,6 @@ function App() {
   const [tokyoPriceData, setTokyoPriceData] = useState<number[]>([]);
   const [kansaiPriceData, setKansaiPriceData] = useState<number[]>([]);
   const [kyushuPriceData, setKyushuPriceData] = useState<number[]>([]);
-
   const [areaPrices, setAreaPrices] = useState<AreaPrice[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -75,7 +69,6 @@ function App() {
         setTokyoPriceData(price.tokyoPriceData);
         setKansaiPriceData(price.kansaiPriceData);
         setKyushuPriceData(price.kyushuPriceData);
-
         setAreaPrices(price.areaPrices);
       } catch (err) {
         setError("JEPXデータ取得に失敗しました");
@@ -88,85 +81,26 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "200px",
-          fontSize: "32px",
-          color: "#ffffff",
-        }}
-      >
-        ⚡ データ取得中...
-      </div>
-    );
+    return <div className="status-screen">⚡ データ取得中...</div>;
   }
 
   if (error) {
-    return (
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "200px",
-          fontSize: "32px",
-          color: "#ffffff",
-        }}
-      >
-        ❌ {error}
-      </div>
-    );
+    return <div className="status-screen">❌ {error}</div>;
   }
 
   return (
-    <div
-      style={{
-        maxWidth: "1000px",
-        margin: "40px auto",
-        fontFamily: "Arial",
-        color: "#ffffff",
-      }}
-    >
-      <h1>⚡ GridScope</h1>
+    <main className="app">
+      <header className="app-header">
+        <h1>⚡ GridScope</h1>
+        <p className="english-title">JEPX Spot Market Dashboard</p>
+        <p className="subtitle">今日の電力市場が3分で分かる。</p>
+      </header>
 
-      <p
-        style={{
-          color: "#ffffff",
-          fontSize: "20px",
-          marginBottom: "4px",
-        }}
-      >
-        JEPX Spot Market Dashboard
-      </p>
-
-      <p
-        style={{
-          color: "#ffffff",
-        }}
-      >
-        今日の電力市場が3分で分かる。
-      </p>
-
-      <hr />
-
-      <div
-        style={{
-          textAlign: "right",
-          color: "#ffffff",
-          marginTop: "10px",
-          marginBottom: "20px",
-          fontSize: "14px",
-        }}
-      >
+      <div className="date-row">
         対象日：{marketDate} {formatSlotTime(marketSlot)}
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          flexWrap: "wrap",
-        }}
-      >
+      <section className="top-cards">
         <PriceCard
           systemPrice={systemPrice}
           tokyoPrice={tokyoPrice}
@@ -180,7 +114,7 @@ function App() {
           kansaiPrice={kansaiPrice}
           kyushuPrice={kyushuPrice}
         />
-      </div>
+      </section>
 
       <MarketAlertCard
         systemPriceData={systemPriceData}
@@ -198,7 +132,7 @@ function App() {
         kansaiPriceData={kansaiPriceData}
         kyushuPriceData={kyushuPriceData}
       />
-    </div>
+    </main>
   );
 }
 

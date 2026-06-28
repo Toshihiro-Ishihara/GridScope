@@ -26,15 +26,9 @@ function AreaPriceTable({ areaPrices }: AreaPriceTableProps) {
         color: "#ffffff",
       }}
     >
-      <h2 style={{ color: "#ffffff" }}>🗾 エリア別価格</h2>
+      <h2 style={{ color: "#ffffff", textAlign: "center" }}>🗾 エリア別価格</h2>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-          gap: "12px",
-        }}
-      >
+      <div className="area-price-grid">
         {areaPrices.map((area) => (
           <div
             key={area.name}
@@ -47,13 +41,13 @@ function AreaPriceTable({ areaPrices }: AreaPriceTableProps) {
               color: "#ffffff",
             }}
           >
-            <div style={{ fontSize: "16px", marginBottom: "6px", color: "#ffffff" }}>
+            <div style={{ fontSize: "16px", marginBottom: "6px" }}>
               {area.name}
             </div>
-            <strong style={{ fontSize: "22px", color: "#ffffff" }}>
+            <strong style={{ fontSize: "22px" }}>
               {area.price.toFixed(2)}
             </strong>
-            <div style={{ fontSize: "12px", color: "#ffffff" }}>円/kWh</div>
+            <div style={{ fontSize: "12px" }}>円/kWh</div>
           </div>
         ))}
       </div>
