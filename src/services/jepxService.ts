@@ -1,6 +1,6 @@
 export async function fetchJepxPrice() {
   const response = await fetch(
-    "http://localhost:3002/jepx/latest"
+    "https://gridscope-api.onrender.com/jepx/latest"
   );
 
   if (!response.ok) {
