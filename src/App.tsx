@@ -7,12 +7,20 @@ import PriceCard from "./components/PriceCard";
 import PriceChart from "./components/PriceChart";
 import MarketAlertCard from "./components/MarketAlertCard";
 import AreaPriceTable from "./components/AreaPriceTable";
+import MarketNewsCard from "./components/MarketNewsCard";
 
-import { fetchJepxPrice } from "./services/jepxService";
+import { fetchJepxPrice, fetchMarketNews } from "./services/jepxService";
 
 type AreaPrice = {
   name: string;
   price: number;
+};
+
+type MarketNews = {
+  title: string;
+  link: string;
+  publishedAt?: string;
+  source: string;
 };
 
 function formatSlotTime(slot: string) {
@@ -47,12 +55,13 @@ function App() {
   const [kansaiPriceData, setKansaiPriceData] = useState<number[]>([]);
   const [kyushuPriceData, setKyushuPriceData] = useState<number[]>([]);
   const [areaPrices, setAreaPrices] = useState<AreaPrice[]>([]);
+  const [marketNews, setMarketNews] = useState<MarketNews[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function loadPrice() {
+    async function loadData() {
       try {
         const price = await fetchJepxPrice();
 
@@ -70,14 +79,22 @@ function App() {
         setKansaiPriceData(price.kansaiPriceData);
         setKyushuPriceData(price.kyushuPriceData);
         setAreaPrices(price.areaPrices);
+
+        try {
+  const newsResponse = await fetchMarketNews();
+  setMarketNews(newsResponse.news || []);
+} catch (newsError) {
+  console.error("ニュース取得に失敗しました", newsError);
+  setMarketNews([]);
+}
       } catch (err) {
-        setError("JEPXデータ取得に失敗しました");
+        setError("データ取得に失敗しました");
       } finally {
         setIsLoading(false);
       }
     }
 
-    loadPrice();
+    loadData();
   }, []);
 
   if (isLoading) {
@@ -124,6 +141,8 @@ function App() {
       />
 
       <AreaPriceTable areaPrices={areaPrices} />
+
+      <MarketNewsCard news={marketNews} />
 
       <PriceChart
         labels={chartLabels}

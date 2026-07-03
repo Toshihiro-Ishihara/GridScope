@@ -9,3 +9,15 @@ export async function fetchJepxPrice() {
 
   return await response.json();
 }
+
+export async function fetchMarketNews() {
+  const response = await fetch(
+    "https://gridscope-api.onrender.com/market-news"
+  );
+
+  if (!response.ok) {
+    throw new Error("ニュース取得失敗");
+  }
+
+  return await response.json();
+}
